@@ -14,6 +14,7 @@ export class GifsService {
 
   constructor(private http: HttpClient) {
     this._history = JSON.parse(localStorage.getItem('history')!) || [] ;
+    this.results = JSON.parse(localStorage.getItem('results')!) || [] ;
   }
 
   get hystory(){
@@ -34,6 +35,7 @@ export class GifsService {
 
     this.http.get<SearchGifsResponse>(this.url).subscribe( (resp) => {
       this.results = resp.data;
+      localStorage.setItem('results', JSON.stringify(this.results))
     });
 
   }
