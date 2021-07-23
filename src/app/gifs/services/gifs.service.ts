@@ -8,7 +8,6 @@ import { SearchGifsResponse, Gif } from '../interfaces/gifs.interface';
 export class GifsService {
 
   private apiKey: string = 'z8L84cRhMVVOIbQuduH0R8OxY88PESaX';
-  private url = '';
   private _history: string [] = [];
   public results: Gif[] = [];
 
@@ -28,12 +27,12 @@ export class GifsService {
     if ( !this._history.includes(query) ) {
       this._history.unshift( query );
       this._history = this._history.splice(0, 10);
-      this.url = `http://api.giphy.com/v1/gifs/search?q=${encodeURI( query )}&limit=10&api_key=${this.apiKey}`;
 
       localStorage.setItem('history', JSON.stringify(this._history))
     }
 
-    this.http.get<SearchGifsResponse>(this.url).subscribe( (resp) => {
+    this.http.get<SearchGifsResponse>(`http://api.giphy.com/v1/gifs/search?q=${encodeURI( query )}&limit=10&api_key=${this.apiKey}`)
+    .subscribe( (resp) => {
       this.results = resp.data;
       localStorage.setItem('results', JSON.stringify(this.results))
     });

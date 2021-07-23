@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GifsService } from '../../gifs/services/gifs.service';
+import { DbzService } from '../../../../../01-bases/src/app/dbz/services/dbz.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +14,9 @@ export class SidebarComponent  {
     return this.gifsService.hystory;
   }
 
+  search( query: string){
+    this.gifsService.searchGifs( query );
+  }
   
 
 }
